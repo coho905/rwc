@@ -43,9 +43,9 @@ fn main()  -> Result<(), std::io::Error> {
                     file_stats.line_count = file_stats.line_count+1;
                     //let bytes = line.len();
                     //file_stats.byte_count = file_stats.byte_count+bytes;
-                    let words = line.split_whitespace().collect::<Vec<_>>().len();
-                    file_stats.word_count = file_stats.word_count + words;
-                },
+                    //let words = line.split_whitespace().collect::<Vec<_>>().len();
+                    file_stats.word_count = file_stats.word_count + line.split_whitespace().count();
+                }
                 Err(err) => return Err(err),
             }
         }
