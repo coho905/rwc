@@ -18,7 +18,7 @@ fn main()  -> Result<(), std::io::Error> {
         return Ok(());
     }
     for arg in &args[1..] {
-        println!("{arg}");
+        //println!("{arg}");
         let path = Path::new(arg.as_str());
         let metadata = std::fs::metadata(&path)?;
         let file_size = metadata.len();
