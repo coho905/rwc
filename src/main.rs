@@ -17,6 +17,12 @@ fn main()  -> Result<(), std::io::Error> {
         println!("Missing filepaths. Please do rwc [filepaths]");
         return Ok(());
     }
+    let mut total_stats = FileStatistics {
+        file_path: "Total".to_string(),
+        word_count: 0,
+        byte_count: 0,
+        line_count: 0,
+    };
     for arg in &args[1..] {
         //println!("{arg}");
         let path = Path::new(arg.as_str());
@@ -49,11 +55,18 @@ fn main()  -> Result<(), std::io::Error> {
                 Err(err) => return Err(err),
             }
         }
+        total_stats.line_count = total_stats.line_count + file_stats.line_count;
+        total_stats.word_count = total_stats.word_count + file_stats.word_count;
+        total_stats.byte_count = total_stats.byte_count + file_stats.byte_count;
         println!(
-            "File: {}   Lines: {}   Words: {}   Bytes: {}",
+            "File: {}\nLines: {}   Words: {}   Bytes: {}",
             file_stats.file_path, file_stats.line_count, file_stats.word_count, file_stats.byte_count
         );
     }
+    println!(
+        "\nTotal\tLines: {}   Words: {}   Bytes: {}",
+        total_stats.line_count, total_stats.word_count, total_stats.byte_count
+    );
     Ok(())
     //println!("Hello, world!");
 }
